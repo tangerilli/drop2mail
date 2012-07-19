@@ -90,7 +90,7 @@ def start():
     sess = _get_dropbox_session()
     request_token = sess.obtain_request_token()
     session['request_token'] = (request_token.key, request_token.secret)
-    url = sess.build_authorize_url(request_token, "http://localhost:5000" + url_for('db_callback'))
+    url = sess.build_authorize_url(request_token, "http://drop2mail.angerilli.ca" + url_for('db_callback'))
     return redirect(url)
 
 @app.route('/start/db_callback')
@@ -105,9 +105,10 @@ def db_callback():
 @app.route('/')
 def index():
     return render_template('index.html', start_url=url_for('start'))
+
+app.debug = settings.APP_DEBUG
+app.secret_key = settings.APP_SECRET_KEY
+
     
 if __name__=='__main__':
-    # TODO: Put this into settings
-    app.debug = settings.APP_DEBUG
-    app.secret_key = settings.APP_SECRET_KEY
     app.run()

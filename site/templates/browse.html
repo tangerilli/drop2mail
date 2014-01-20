@@ -12,7 +12,14 @@
             {% endif %}
             {% endfor %}
         </h2>
-        <form method="post" class="form-inline" action="{{send_url}}">
+        <form method="post" class="form-inline" action="{{send_url}}" id="file-form">
+            {% if top_input %}
+            <div id="top-send-input">
+                <input type="text" id="target_email" name="target_email" placeholder="Send files to email" class="input-medium">
+                <input type="hidden" name="current_url" value="{{current_url}}">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+            {% endif %}
             <ul class="unstyled">
                 {% for item in contents %}
                 {% if item.is_dir %}
@@ -27,9 +34,11 @@
                 {% endif %}
                 {% endfor %}
             </ul>
-            <input type="text" id="target_email" name="target_email" placeholder="Send files to email address">
-            <input type="hidden" name="current_url" value="{{current_url}}">
-            <button type="submit" class="btn btn-primary">Send</button>
+            <div>
+                <input type="text" id="target_email" name="target_email" placeholder="Send files to email" class="input-medium">
+                <input type="hidden" name="current_url" value="{{current_url}}">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
         </form>
     </div>
 </div>

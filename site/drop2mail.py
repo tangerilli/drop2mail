@@ -81,7 +81,7 @@ def browse(path):
         root_elements = root_elements[:-1]
     path_elements = [(element, url_for('browse', path='/'.join(root_elements[:i+1])[1:])) for i, element in enumerate(root_elements)]
     return render_template('browse.html', contents=contents, root_path=path_elements, 
-                            send_url=url_for('send'), current_url=request.url)   
+                            send_url=url_for('send'), current_url=request.url, top_input=len(contents)>20)   
     
 @app.route('/start')
 def start():

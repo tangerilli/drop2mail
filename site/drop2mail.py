@@ -90,7 +90,7 @@ def start():
     sess = _get_dropbox_session()
     request_token = sess.obtain_request_token()
     session['request_token'] = (request_token.key, request_token.secret)
-    url = sess.build_authorize_url(request_token, "http://drop2mail.angerilli.ca" + url_for('db_callback'))
+    url = sess.build_authorize_url(request_token, settings.BASE_URL + url_for('db_callback'))
     return redirect(url)
 
 @app.route('/start/db_callback')

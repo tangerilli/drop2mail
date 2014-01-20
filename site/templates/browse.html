@@ -2,30 +2,35 @@
 
 {% block content %}
 <div class="row">
-    <h2>
-        {% for node, href in root_path %}
-        {% if node %}
-        <a href='{{href}}'>{{ node }}</a> /
-        {% else %}
-        <a href='{{href}}'>/</a>        
-        {% endif %}
-        {% endfor %}
-    </h2>
-    <form method="post" class="form-inline" action="{{send_url}}">
-        <ul class="unstyled">
-            {% for item in contents %}
-            {% if item.is_dir %}
-            <li><a href="/browse{{ item.path }}">{{ item.relative_path }}</a></li>
+    <div class="span12 file-list-container">
+        <h2>
+            {% for node, href in root_path %}
+            {% if node %}
+            <a href='{{href}}'>{{ node }}</a> /
             {% else %}
-            <li>
-                <input type="checkbox" name="files" value="{{item.path}}"> {{ item.relative_path }}</input>
-            </li>
+            <a href='{{href}}'>/</a>        
             {% endif %}
             {% endfor %}
-        </ul>
-        <input type="text" id="target_email" name="target_email" placeholder="Send files to email address">
-        <input type="hidden" name="current_url" value="{{current_url}}">
-        <button type="submit" class="btn btn-primary">Send</button>
-    </form>
+        </h2>
+        <form method="post" class="form-inline" action="{{send_url}}">
+            <ul class="unstyled">
+                {% for item in contents %}
+                {% if item.is_dir %}
+                <li><a href="/browse{{ item.path }}">{{ item.relative_path }}</a></li>
+                {% else %}
+                <li>
+                    <label class="checkbox">
+                        <input type="checkbox" name="files" value="{{item.path}}">
+                        {{ item.relative_path }}
+                    </label>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            <input type="text" id="target_email" name="target_email" placeholder="Send files to email address">
+            <input type="hidden" name="current_url" value="{{current_url}}">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
